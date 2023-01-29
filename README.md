@@ -16,7 +16,7 @@ HVV Oculus is a tool for researching vestibular stimulation in individuals using
 
 ---
 
-1. Download the most [recent release](https://github.com/DaviesCooper/HVVOculus/releases/tag/v1.0.0.0)
+1. Download the most [recent release](https://github.com/DaviesCooper/HVVOculus/releases)
 2. Extract to wherever you want.
 3. With your Oculus Quest connected to your PC, and with Quest Link enabled, run `HVV Oculus.exe` on your computer.
 
