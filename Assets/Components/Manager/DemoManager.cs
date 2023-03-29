@@ -3,7 +3,6 @@ using SimpleFileBrowser;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Ports;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +19,8 @@ public class DemoManager : MonoBehaviour
     public GameObject particlePreviewer;
     public GameObject particleWindow;
 
+    public SerialManager serialManager;
+
     public TMPro.TextMeshProUGUI Error;
     public Button Dismiss;
 
@@ -32,16 +33,12 @@ public class DemoManager : MonoBehaviour
     private string debugPath = "./SendToCooperIfAnythingGoesWrong.log";
     StreamWriter writer;
 
-    static SerialPort _serialPort;
+    
 
     // Start is called before the first frame update
     void Awake()
     {
-        _serialPort = new SerialPort();
-        _serialPort.PortName = "COM3";//Set your board COM
-        _serialPort.BaudRate = 9600;
-        _serialPort.Open();
-
+       
         writer =  new StreamWriter(debugPath, false);
         Application.logMessageReceived += (string logString, string stackTrace, LogType logType) => {
  
@@ -51,6 +48,7 @@ public class DemoManager : MonoBehaviour
 
             writer.Flush();
         };
+        
 
         Dismiss.onClick.AddListener(() =>
         {
@@ -69,7 +67,7 @@ public class DemoManager : MonoBehaviour
 
         SendToHeadset.onClick.AddListener(() =>
         {
-            _serialPort.WriteLine("Hello");
+            serialManager.sendSignal();
 
             HeadsetManager.Reset(UIManager.numberOfParticles, UIManager.particleRadius,
                 UIManager.generationRadius, UIManager.generationLength, UIManager.exclusionRadius,
